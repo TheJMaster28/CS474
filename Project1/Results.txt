@@ -1,100 +1,100 @@
 ~~~~~~1~~~~~~
-Form Process1: Counter = 100010
+Form Process1: Counter = 100145
 Form Process2: Counter = 200000
-Form Process3: Counter = 300000
+Form Process3: Counter = 300052
 Form Process4: Counter = 500000
-Child 1 21354 pid has just exited.
-Child 2 21355 pid has just exited.
-Child 3 21356 pid has just exited.
-Child 4 21357 pid has just exited.
+Child 1 24355 pid has just exited.
+Child 2 24356 pid has just exited.
+Child 3 24357 pid has just exited.
+Child 4 24358 pid has just exited.
 End of program
 ~~~~~~2~~~~~~
 Form Process1: Counter = 100000
 Form Process2: Counter = 200000
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21359 pid has just exited.
-Child 2 21360 pid has just exited.
-Child 3 21361 pid has just exited.
-Child 4 21362 pid has just exited.
+Child 1 24360 pid has just exited.
+Child 2 24361 pid has just exited.
+Child 3 24362 pid has just exited.
+Child 4 24363 pid has just exited.
 End of program
 ~~~~~~3~~~~~~
 Form Process1: Counter = 100000
 Form Process2: Counter = 200000
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21364 pid has just exited.
-Child 2 21365 pid has just exited.
-Child 3 21366 pid has just exited.
-Child 4 21367 pid has just exited.
+Child 1 24365 pid has just exited.
+Child 2 24366 pid has just exited.
+Child 3 24367 pid has just exited.
+Child 4 24368 pid has just exited.
 End of program
 ~~~~~~4~~~~~~
 Form Process1: Counter = 100000
-Form Process2: Counter = 200000
+Form Process2: Counter = 199886
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21369 pid has just exited.
-Child 2 21370 pid has just exited.
-Child 3 21371 pid has just exited.
-Child 4 21372 pid has just exited.
+Child 1 24370 pid has just exited.
+Child 2 24371 pid has just exited.
+Child 3 24372 pid has just exited.
+Child 4 24373 pid has just exited.
 End of program
 ~~~~~~5~~~~~~
 Form Process1: Counter = 100000
 Form Process2: Counter = 200000
-Form Process3: Counter = 300002
+Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21374 pid has just exited.
-Child 2 21375 pid has just exited.
-Child 3 21376 pid has just exited.
-Child 4 21377 pid has just exited.
+Child 1 24375 pid has just exited.
+Child 2 24376 pid has just exited.
+Child 3 24377 pid has just exited.
+Child 4 24378 pid has just exited.
 End of program
 ~~~~~~6~~~~~~
-Form Process1: Counter = 100000
-Form Process2: Counter = 200000
-Form Process3: Counter = 299965
+Form Process1: Counter = 100226
+Form Process2: Counter = 200147
+Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21379 pid has just exited.
-Child 2 21380 pid has just exited.
-Child 3 21381 pid has just exited.
-Child 4 21382 pid has just exited.
+Child 1 24380 pid has just exited.
+Child 2 24381 pid has just exited.
+Child 3 24382 pid has just exited.
+Child 4 24383 pid has just exited.
 End of program
 ~~~~~~7~~~~~~
-Form Process1: Counter = 100089
+Form Process1: Counter = 100000
 Form Process2: Counter = 200000
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21384 pid has just exited.
-Child 2 21385 pid has just exited.
-Child 3 21386 pid has just exited.
-Child 4 21387 pid has just exited.
+Child 1 24385 pid has just exited.
+Child 2 24386 pid has just exited.
+Child 3 24387 pid has just exited.
+Child 4 24388 pid has just exited.
 End of program
 ~~~~~~8~~~~~~
-Form Process1: Counter = 100019
+Form Process1: Counter = 100000
 Form Process2: Counter = 200000
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21389 pid has just exited.
-Child 2 21390 pid has just exited.
-Child 3 21391 pid has just exited.
-Child 4 21392 pid has just exited.
+Child 1 24390 pid has just exited.
+Child 2 24391 pid has just exited.
+Child 3 24392 pid has just exited.
+Child 4 24393 pid has just exited.
 End of program
 ~~~~~~9~~~~~~
 Form Process1: Counter = 100000
 Form Process2: Counter = 200000
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21394 pid has just exited.
-Child 2 21395 pid has just exited.
-Child 3 21396 pid has just exited.
-Child 4 21397 pid has just exited.
+Child 1 24395 pid has just exited.
+Child 2 24396 pid has just exited.
+Child 3 24397 pid has just exited.
+Child 4 24398 pid has just exited.
 End of program
 ~~~~~~10~~~~~~
-Form Process1: Counter = 100000
-Form Process2: Counter = 200000
+Form Process1: Counter = 100140
+Form Process2: Counter = 199997
 Form Process3: Counter = 300000
 Form Process4: Counter = 500000
-Child 1 21399 pid has just exited.
-Child 2 21400 pid has just exited.
-Child 3 21401 pid has just exited.
-Child 4 21402 pid has just exited.
+Child 1 24400 pid has just exited.
+Child 2 24401 pid has just exited.
+Child 3 24402 pid has just exited.
+Child 4 24403 pid has just exited.
 End of program
