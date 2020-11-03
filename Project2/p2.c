@@ -27,32 +27,32 @@ shared_mem* BufferPointer;
 
 sem_t mutex, empty, full;
 
-void* producer() {
-    printf("Starting THreead Producer");
+void* producer(void* arg) {
+    printf("Starting Thread Producer\n");
     char newChar;
     FILE* fp;
     fp = fopen("mytest.dat", "r");
+
+    // wait on empty
+    sem_wait(&empty);
+
+    // wait mutex
+    sem_wait(&mutex);
+
+    // critical section
     while (fscanf(fp, "%c", &newChar) != EOF) {
-        // wait on empy
-        sem_wait(&empty);
-
-        // wait mutex
-        sem_wait(&mutex);
-
-        // critical section
-        printf("%c", newChar);
-
-        // signal mutex
-        sem_post(&mutex);
-
-        // signal full
-        sem_post(&full);
+        printf("%c\n", newChar);
     }
+    // signal mutex
+    sem_post(&mutex);
+
+    // signal full
+    sem_post(&full);
 
     fclose(fp);
 }
-void* consumer() {
-    printf("Starting THreead Consumer");
+void* consumer(void* arg) {
+    printf("Starting Thread Consumer\n");
     // wait full
     sem_wait(&full);
 
@@ -60,7 +60,8 @@ void* consumer() {
     sem_wait(&mutex);
 
     // Critcial section
-    sleep(4);
+    // sleep(1);
+    printf("Hello 2\n");
 
     // signal mutex
     sem_post(&mutex);
@@ -70,7 +71,7 @@ void* consumer() {
 }
 
 int main() {
-    printf("Creating Shared Memory");
+    printf("Creating Shared Memory\n");
     int shmid;
     char* shmadd;
     shmadd = (char*)0;
@@ -83,21 +84,29 @@ int main() {
         exit(0);
     }
 
-    printf("Creating Semphoares");
+    printf("Creating Semphoares\n");
     sem_init(&mutex, 0, 1);
     sem_init(&empty, 0, SIZE);
     sem_init(&full, 0, 0);
 
-    printf("Creating threads");
-    pthread_t pro, con;
-    pthread_create(&pro, NULL, producer, NULL);
-    pthread_create(&con, NULL, consumer, NULL);
+    printf("Creating Threads\n");
+    pthread_t pro[1], con[1];
 
-    printf("Waiting for Threads");
-    pthread_join(pro, NULL);
-    pthread_join(con, NULL);
+    pthread_attr_t attr[1];
 
-    printf("Done with Threads");
+    fflush(stdout);
+
+    pthread_attr_init(&attr[0]);
+    pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
+
+    pthread_create(&pro[0], &attr[0], producer, NULL);
+    pthread_create(&con[0], &attr[0], consumer, NULL);
+
+    printf("Waiting for Threads\n");
+    pthread_join(pro[0], NULL);
+    pthread_join(con[0], NULL);
+
+    printf("Done with Threads\n");
 
     // release shared memory
     if (shmdt(BufferPointer) == -1) {
@@ -110,4 +119,6 @@ int main() {
     sem_destroy(&empty);
     sem_destroy(&full);
     printf("End of program\n");
+
+    return 0;
 }
