@@ -1,3 +1,5 @@
 .vscode
 *.drawio
 *.png
+*/a.out 
+*/*.out
