@@ -3,3 +3,4 @@
 *.png
 */a.out 
 */*.out
+*/*.log

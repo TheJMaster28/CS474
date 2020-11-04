@@ -31,7 +31,31 @@ void* producer(void* arg) {
     printf("Starting Thread Producer\n");
     char newChar;
     FILE* fp;
-    fp = fopen("mytest.dat", "r");
+    fp = fopen("mytest_big.dat", "r");
+
+    int index = 0;
+    // critical section
+    while (fscanf(fp, "%c", &newChar) != EOF) {
+        // wait on empty
+        sem_wait(&empty);
+
+        // wait mutex
+        sem_wait(&mutex);
+
+        // printf("%c\n", newChar);
+        BufferPointer->buffer[index] = newChar;
+
+        // signal mutex
+        sem_post(&mutex);
+
+        // signal full
+        sem_post(&full);
+
+        index++;
+        if (index >= 15) {
+            index = 0;
+        }
+    }
 
     // wait on empty
     sem_wait(&empty);
@@ -39,10 +63,9 @@ void* producer(void* arg) {
     // wait mutex
     sem_wait(&mutex);
 
-    // critical section
-    while (fscanf(fp, "%c", &newChar) != EOF) {
-        printf("%c\n", newChar);
-    }
+    // printf("%c\n", newChar);
+    BufferPointer->buffer[index] = '\0';
+
     // signal mutex
     sem_post(&mutex);
 
@@ -53,21 +76,45 @@ void* producer(void* arg) {
 }
 void* consumer(void* arg) {
     printf("Starting Thread Consumer\n");
-    // wait full
-    sem_wait(&full);
 
-    // wait mutex
-    sem_wait(&mutex);
+    char readChar;
 
-    // Critcial section
-    // sleep(1);
-    printf("Hello 2\n");
+    int index = 0;
+    int endOfFile = 0;
+    printf("From Buffer: ");
+    while (1) {
+        if (index >= 15) {
+            index = 0;
+        }
 
-    // signal mutex
-    sem_post(&mutex);
+        sleep(1);
+        // wait full
+        sem_wait(&full);
 
-    // signal empty
-    sem_post(&empty);
+        // wait mutex
+        sem_wait(&mutex);
+
+        // critical Section
+        readChar = BufferPointer->buffer[index];
+        if (readChar != '\0') {
+            printf("%c", readChar);
+            fflush(stdout);
+        } else {
+            endOfFile = 1;
+        }
+
+        // signal mutex
+        sem_post(&mutex);
+
+        // signal empty
+        sem_post(&empty);
+
+        index++;
+
+        if (endOfFile) {
+            break;
+        }
+    }
 }
 
 int main() {
@@ -93,8 +140,6 @@ int main() {
     pthread_t pro[1], con[1];
 
     pthread_attr_t attr[1];
-
-    fflush(stdout);
 
     pthread_attr_init(&attr[0]);
     pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
