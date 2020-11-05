@@ -9,6 +9,7 @@
 #include <sys/shm.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
 #include <unistd.h>  // for close
 
 #define SIZE 15
@@ -119,6 +120,7 @@ void* consumer(void* arg) {
 }
 
 int main() {
+    time_t timeStart = time(NULL);
     printf("Creating Shared Memory\n");
     int shmid;
     char* shmadd;
@@ -164,7 +166,10 @@ int main() {
     sem_destroy(&mutex);
     sem_destroy(&empty);
     sem_destroy(&full);
-    printf("End of program\n");
+
+    time_t timeEnd = time(NULL);
+    double time_taken = difftime(timeEnd, timeStart);
+    printf("End of program, Time Taken : %f\n", time_taken);
 
     return 0;
 }
