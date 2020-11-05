@@ -31,7 +31,7 @@ void* producer(void* arg) {
     printf("Starting Thread Producer\n");
     char newChar;
     FILE* fp;
-    fp = fopen("mytest_big.dat", "r");
+    fp = fopen("mytest.dat", "r");
 
     int index = 0;
     // critical section
@@ -112,6 +112,7 @@ void* consumer(void* arg) {
         index++;
 
         if (endOfFile) {
+            printf("\n");
             break;
         }
     }
