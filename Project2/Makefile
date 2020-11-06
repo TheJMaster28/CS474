@@ -6,6 +6,5 @@ run: compile
 		echo "~~~~~~$$number~~~~~~"; \
 		./project2; \
 	done 
-shared_memory:
-	ipcs
-	@echo "ipcrm -m"
+run_once: compile
+	./project2
