@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <time.h>
@@ -135,7 +136,8 @@ void* consumer(void* arg) {
 // main thread for creating and deleting threads and shared memory
 int main() {
     // take beginnig time
-    time_t timeStart = time(NULL);
+    struct timeval timeStart, timeEnd, timeTaken;
+    gettimeofday(&timeStart, NULL);
 
     // create share memory
     int shmid;
@@ -180,9 +182,9 @@ int main() {
     sem_destroy(&full);
 
     // evaulate time evaluation
-    time_t timeEnd = time(NULL);
-    double time_taken = difftime(timeEnd, timeStart);
-    printf("End of program, Time Taken : %f\n", time_taken);
+    gettimeofday(&timeEnd, NULL);
+    timersub(&timeEnd, &timeStart, &timeTaken);
+    printf("End of program, Time Taken : %lu.%lu\n seconds", (long int)timeTaken.tv_sec, (long int)timeTaken.tv_usec);
 
     return 0;
 }
