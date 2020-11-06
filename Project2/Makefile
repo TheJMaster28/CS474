@@ -4,7 +4,7 @@ compile:
 run: compile
 	for number in 1 2 3 4 5; do \
 		echo "~~~~~~$$number~~~~~~"; \
-		./project2; \
+		./project2.out; \
 	done 
 run_once: compile
-	./project2
+	./project2.out
