@@ -184,7 +184,7 @@ int main() {
     // evaulate time evaluation
     gettimeofday(&timeEnd, NULL);
     timersub(&timeEnd, &timeStart, &timeTaken);
-    printf("End of program, Time Taken : %lu.%lu\n seconds", (long int)timeTaken.tv_sec, (long int)timeTaken.tv_usec);
+    printf("End of program, Time Taken : %lu.%lu seconds\n", (long int)timeTaken.tv_sec, (long int)timeTaken.tv_usec);
 
     return 0;
 }
