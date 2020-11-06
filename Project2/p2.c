@@ -26,16 +26,21 @@ typedef struct
 
 shared_mem* BufferPointer;
 
+// semaphores
 sem_t mutex, empty, full;
 
+// function for producer thread
 void* producer(void* arg) {
     printf("Starting Thread Producer\n");
-    char newChar;
+
+    // open file
     FILE* fp;
     fp = fopen("mytest.dat", "r");
 
+    // set up index and character varible
+    char newChar;
     int index = 0;
-    // critical section
+    // read in characters from file
     while (fscanf(fp, "%c", &newChar) != EOF) {
         // wait on empty
         sem_wait(&empty);
@@ -43,7 +48,8 @@ void* producer(void* arg) {
         // wait mutex
         sem_wait(&mutex);
 
-        // printf("%c\n", newChar);
+        // critical section
+        // store read character into shared memeory buffer
         BufferPointer->buffer[index] = newChar;
 
         // signal mutex
@@ -52,8 +58,9 @@ void* producer(void* arg) {
         // signal full
         sem_post(&full);
 
+        // incremate index and reset index if greater than size of Buffer
         index++;
-        if (index >= 15) {
+        if (index >= SIZE) {
             index = 0;
         }
     }
@@ -75,20 +82,20 @@ void* producer(void* arg) {
 
     fclose(fp);
 }
+
+// function for consumer thread
 void* consumer(void* arg) {
     printf("Starting Thread Consumer\n");
 
+    // set up flags, index, and character varibles
     char readChar;
-
     int index = 0;
     int endOfFile = 0;
     printf("From Buffer: ");
     while (1) {
-        if (index >= 15) {
-            index = 0;
-        }
-
+        // wait one second
         sleep(1);
+
         // wait full
         sem_wait(&full);
 
@@ -96,11 +103,16 @@ void* consumer(void* arg) {
         sem_wait(&mutex);
 
         // critical Section
+        // read in Charater from buffer
         readChar = BufferPointer->buffer[index];
+
+        // if character is not null charcter, then print character out
         if (readChar != '\0') {
             printf("%c", readChar);
             fflush(stdout);
-        } else {
+        }
+        // set flag to leave loop
+        else {
             endOfFile = 1;
         }
 
@@ -110,8 +122,13 @@ void* consumer(void* arg) {
         // signal empty
         sem_post(&empty);
 
+        // incremate index and reset index if greater than size of Buffer
         index++;
+        if (index >= SIZE) {
+            index = 0;
+        }
 
+        // print new line and break out of loop
         if (endOfFile) {
             printf("\n");
             break;
@@ -119,8 +136,12 @@ void* consumer(void* arg) {
     }
 }
 
+// main thread for creating and deleting threads and shared memory
 int main() {
+    // take beginnig time
     time_t timeStart = time(NULL);
+
+    // create share memory
     printf("Creating Shared Memory\n");
     int shmid;
     char* shmadd;
@@ -134,22 +155,22 @@ int main() {
         exit(0);
     }
 
-    printf("Creating Semphoares\n");
+    // initialized semaphores
+    printf("Creating Semaphores\n");
     sem_init(&mutex, 0, 1);
     sem_init(&empty, 0, SIZE);
     sem_init(&full, 0, 0);
 
+    // create threads
     printf("Creating Threads\n");
     pthread_t pro[1], con[1];
-
     pthread_attr_t attr[1];
-
     pthread_attr_init(&attr[0]);
     pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
-
     pthread_create(&pro[0], &attr[0], producer, NULL);
     pthread_create(&con[0], &attr[0], consumer, NULL);
 
+    // wait on threads to be finshed
     printf("Waiting for Threads\n");
     pthread_join(pro[0], NULL);
     pthread_join(con[0], NULL);
@@ -163,10 +184,12 @@ int main() {
     }
     shmctl(shmid, IPC_RMID, NULL);
 
+    // destory semaphores
     sem_destroy(&mutex);
     sem_destroy(&empty);
     sem_destroy(&full);
 
+    // evaulate time evaluation
     time_t timeEnd = time(NULL);
     double time_taken = difftime(timeEnd, timeStart);
     printf("End of program, Time Taken : %f\n", time_taken);
