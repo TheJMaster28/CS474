@@ -31,8 +31,6 @@ sem_t mutex, empty, full;
 
 // function for producer thread
 void* producer(void* arg) {
-    printf("Starting Thread Producer\n");
-
     // open file
     FILE* fp;
     fp = fopen("mytest.dat", "r");
@@ -85,8 +83,6 @@ void* producer(void* arg) {
 
 // function for consumer thread
 void* consumer(void* arg) {
-    printf("Starting Thread Consumer\n");
-
     // set up flags, index, and character varibles
     char readChar;
     int index = 0;
@@ -142,7 +138,6 @@ int main() {
     time_t timeStart = time(NULL);
 
     // create share memory
-    printf("Creating Shared Memory\n");
     int shmid;
     char* shmadd;
     shmadd = (char*)0;
@@ -156,13 +151,11 @@ int main() {
     }
 
     // initialized semaphores
-    printf("Creating Semaphores\n");
     sem_init(&mutex, 0, 1);
     sem_init(&empty, 0, SIZE);
     sem_init(&full, 0, 0);
 
     // create threads
-    printf("Creating Threads\n");
     pthread_t pro[1], con[1];
     pthread_attr_t attr[1];
     pthread_attr_init(&attr[0]);
@@ -171,11 +164,8 @@ int main() {
     pthread_create(&con[0], &attr[0], consumer, NULL);
 
     // wait on threads to be finshed
-    printf("Waiting for Threads\n");
     pthread_join(pro[0], NULL);
     pthread_join(con[0], NULL);
-
-    printf("Done with Threads\n");
 
     // release shared memory
     if (shmdt(BufferPointer) == -1) {
