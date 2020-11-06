@@ -1,3 +1,9 @@
+/*
+    Jeffrey Lansford
+    11/5/2020
+    Project 2
+    Program that creates two threads, producer and comsumer, where producer reads char by char into circular buffer and consumer reads form buffer and prints value
+*/
 #define _REENTRANT
 #include <errno.h>
 #include <fcntl.h>
@@ -11,7 +17,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <time.h>
-#include <unistd.h>  // for close
+#include <unistd.h>
 
 #define SIZE 15
 // const int SIZE = 15;
